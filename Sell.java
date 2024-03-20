@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Sell {
 
-    private static int NUMBER_OF_SELLS = 0;
+    private static int numberOfSells = 0;
     // Id of the sell.
     private final String id;
     // Client to whom the sell is done.
@@ -30,7 +30,7 @@ public class Sell {
      * @param property The sold property.
      */
     public Sell(User client, User seller, Property property) {
-        this.id = Integer.toString(++NUMBER_OF_SELLS);
+        this.id = Integer.toString(++numberOfSells);
         this.client = client;
         this.seller = seller;
         this.property = property;
