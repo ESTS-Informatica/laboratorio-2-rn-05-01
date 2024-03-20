@@ -76,10 +76,6 @@ public class Property {
 
     @Override
     public String toString() {
-        return "Property{" +
-                "id='" + id + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                '}';
+         return "Descrição: " + description + "\nPreço: " + price + " Euros";
     }
 }
