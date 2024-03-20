@@ -15,6 +15,7 @@ public class CompanyTest
 {
     Company company;
     User client1, client2, seller1, seller2;
+    Property property1, property2;
 
     /**
      * Construtor default para a classe de teste CompanyTest
@@ -98,7 +99,36 @@ public class CompanyTest
         assertFalse(company.registerSeller(null));
         
     }
+    //Properties
+    @Test
+     public void testRegisterProperty(){
+       
+        assertTrue(company.registerProperty(property1));
+        
+        assertTrue(company.getProperties().contains(property1));
 
+        
+    }
+    @Test
+     public void testRegisterProperties(){
+        assertTrue(company.registerProperty(property1));
+        assertTrue(company.registerProperty(property2));
+    
+    }
+    @Test
+    public void testRegisterPropertyDuplicate(){
+         
+         company.registerProperty(property1);
+         assertFalse(company.registerProperty(property1));
+         
+        
+    }
+      @Test
+    public void testRegisterPropertyNull(){
+        // Tentar registrar um cliente null
+        assertFalse(company.registerProperty(null));
+        
+    }
     /**
      * Define a 'fixture' do teste.
      *
@@ -114,7 +144,8 @@ public class CompanyTest
         this.client2 = new User("António Francisco", "922222222", "tochico@hotmail.com");
         this.seller1 = new User("Fernando Fernandes", "966777101", "fefe@remax.pt");
         this.seller2 = new User("Rodrigo Rodrigues", "966777152", "roro@remax.pt");
-        
+        this.property1 = new Property("T3 Monte Belo", 150000.0);
+        this.property2 = new Property("Casa de Praia", 250000.0);
         
 
       
