@@ -16,6 +16,7 @@ public class CompanyTest
     Company company;
     User client1, client2, seller1, seller2;
     Property property1, property2;
+    Sell sell1, sell2;
 
     /**
      * Construtor default para a classe de teste CompanyTest
@@ -123,11 +124,40 @@ public class CompanyTest
          
         
     }
-      @Test
+    @Test
     public void testRegisterPropertyNull(){
         // Tentar registrar um cliente null
         assertFalse(company.registerProperty(null));
         
+    }
+    //SELLS
+    @Test
+    public void testCreateSell(){
+        company.registerClient(client1);
+        company.registerSeller(seller1);
+        company.registerProperty(property1);
+ 
+        assertTrue(company.createSell(client1, seller1, property1));
+        
+        
+    }
+    @Test
+    public void testCalculateSellsOfTheYear(){
+        company.registerSell(sell1);
+        company.registerSell(sell2);
+        
+        assertEquals(2,company.calculateSellsOfTheYear(2024));
+    }
+    @Test
+    public void testFindSellerOfTheYear(){
+        company.registerSell(sell1);
+        company.registerSell(sell2);
+
+        // Encontrar o vendedor do ano 2024
+        String sellerOfTheYear = company.findSellerOfTheYear(2024);
+
+        // Verificar se o vendedor encontrado é o esperado
+        assertEquals("Fernando Fernandes", sellerOfTheYear);
     }
     /**
      * Define a 'fixture' do teste.
@@ -146,6 +176,9 @@ public class CompanyTest
         this.seller2 = new User("Rodrigo Rodrigues", "966777152", "roro@remax.pt");
         this.property1 = new Property("T3 Monte Belo", 150000.0);
         this.property2 = new Property("Casa de Praia", 250000.0);
+        
+        this.sell1 = new Sell(client1, seller1, property1);
+        this.sell2 = new Sell(client2, seller2, property2);
         
 
       

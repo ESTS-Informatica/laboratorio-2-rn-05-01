@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.util.List;
 
+
 /**
  * Manage a company.
  *
@@ -120,7 +121,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSell(Sell sell) {
-        return true;         // dummy implementation
+         if ( sell == null || sells.contains(sell)) {
+            return false;
+        }
+        sells.add(sell);
+        return true;      
     }
 
     /**
@@ -132,7 +137,21 @@ public class Company {
      * @return true If the request succeeds, false otherwise.
      */
     public boolean createSell(User client, User seller, Property property) {
-        return true;         // dummy implementation
+        if (client == null || seller == null || property == null) {
+        return false; // Se algum dos parâmetros for nulo, a venda não pode ser criada
+    } else if (!clients.contains(client) || !sellers.contains(seller) || !properties.contains(property)) {
+        return false; // Se o cliente, vendedor ou propriedade não estiverem registrados, a venda não pode ser criada
+    } else {
+        // Criar a venda
+        Sell sell = new Sell(client, seller, property);
+
+        // Registrar a venda
+        if (!registerSell(sell)) {
+            return false;
+        }
+
+        return true; // Venda criada e registrada com sucesso
+    }
     }
 
     /**
@@ -142,7 +161,16 @@ public class Company {
      * @return The total number of sells in the year.
      */
     public int calculateSellsOfTheYear(int year) {
-        return 0;         // dummy implementation
+        int totalSells = 0;
+
+    // Iterar sobre as vendas e contar aquelas que ocorreram no ano fornecido
+    for (Sell sell : sells) {
+        if (sell.getDate().getYear() == year) {
+            totalSells++;
+        }
+    }
+
+    return totalSells;
     }
 
     /**
@@ -152,7 +180,34 @@ public class Company {
      * @return The name of the seller of the year.
      */
     public String findSellerOfTheYear(int year) {
-        return null;         // dummy implementation
-    }
+          String sellerOfTheYear = null;
+        int maxSells = 0;
 
+        for (Sell sell : sells) {
+            if (sell.getDate().getYear() == year) {
+                User seller = sell.getSeller();
+                int sellsCount = countSellsForSeller(seller, year);
+                if (sellsCount > maxSells) {
+                    maxSells = sellsCount;
+                    sellerOfTheYear = seller.getName();
+                }
+            }
+        }
+
+        return sellerOfTheYear;
+            
+
+}
+/**
+ * Método auxiliar para contar o número de vendas de um vendedor
+ */
+private int countSellsForSeller(User seller, int year) {
+        int sellsCount = 0;
+        for (Sell sell : sells) {
+            if (sell.getSeller().equals(seller) && sell.getDate().getYear() == year) {
+                sellsCount++;
+            }
+        }
+        return sellsCount;
+    }
 }
