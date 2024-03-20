@@ -30,6 +30,74 @@ public class CompanyTest
         assertNotNull(company.getSellers());
    
     }
+    //Clients
+    @Test
+    public void testRegisterClient(){
+       
+        assertTrue(company.registerClient(client1));
+        
+        assertTrue(company.getClients().contains(client1));
+
+        
+    }
+    
+    @Test
+    public void testRegisterClients(){
+        assertTrue(company.registerClient(client1));
+        assertTrue(company.registerClient(client2));
+        
+        assertTrue(company.getClients().contains(client1));
+        assertTrue(company.getClients().contains(client2));
+        
+    }
+    
+    @Test
+    public void testRegisterClientDuplicate(){
+         
+         company.registerClient(client1);
+         assertFalse(company.registerClient(client1));
+         
+        
+    }
+    @Test
+    public void testRegisterClientNull(){
+        // Tentar registrar um cliente null
+        assertFalse(company.registerClient(null));
+        
+    }
+    //Sellers
+    @Test
+     public void testRegisterSeller(){
+       
+        assertTrue(company.registerSeller(seller1));
+        
+        assertTrue(company.getSellers().contains(seller1));
+
+        
+    }
+    @Test
+     public void testRegisterSellers(){
+        assertTrue(company.registerSeller(seller1));
+        assertTrue(company.registerSeller(seller2));
+        
+        //assertTrue(company.getSellers().contains(seller1));
+        //assertTrue(company.getSellers().contains(seller2));
+        
+    }
+    @Test
+    public void testRegisterSellerDuplicate(){
+         
+         company.registerSeller(seller1);
+         assertFalse(company.registerSeller(seller1));
+         
+        
+    }
+    @Test
+    public void testRegisterSellerNull(){
+        // Tentar registrar um cliente null
+        assertFalse(company.registerSeller(null));
+        
+    }
 
     /**
      * Define a 'fixture' do teste.
@@ -46,9 +114,13 @@ public class CompanyTest
         this.client2 = new User("António Francisco", "922222222", "tochico@hotmail.com");
         this.seller1 = new User("Fernando Fernandes", "966777101", "fefe@remax.pt");
         this.seller2 = new User("Rodrigo Rodrigues", "966777152", "roro@remax.pt");
+        
+        
 
       
     }
+    
+    
 
     /**
      * Desfaz a 'fixture' do teste.

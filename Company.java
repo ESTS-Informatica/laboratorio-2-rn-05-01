@@ -74,7 +74,16 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerClient(User client) {
-        return true;         // dummy implementation
+        if (client == null) {
+            return false;
+        }
+
+        if (clients.contains(client)) {
+            return false; // Cliente já registrado
+        }
+
+        clients.add(client);
+        return true; // Cliente registrado com sucesso
     }
 
     /**
@@ -84,7 +93,16 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSeller(User seller) {
-        return true;         // dummy implementation
+        if ( seller == null) {
+            return false;
+        }
+
+        if (sellers.contains(seller)) {
+            return false; // seller já registrado
+        }
+
+        sellers.add(seller);
+        return true; // seller registrado com sucesso
     }
 
     /**
